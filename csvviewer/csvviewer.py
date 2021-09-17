@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from argparse import ArgumentParser
 import os
 import csv
@@ -11,25 +9,28 @@ __author__ = 'franklinsijo'
 class CSVViewer(object):
     def __init__(self, args):
         try:
-            csvfile = args.CSVFILE[0]
-            if not os.path.isfile(csvfile):
-                raise IOError(csvfile + ' is not a valid file')
+            self.csvfile = args.CSVFILE[0]
+            if not os.path.isfile(self.csvfile):
+                raise IOError(self.csvfile + ' is not a valid file')
         except Exception as e:
             raise e
+        self.delimiter = args.DELIMITER
+        self.max_lines = args.LINES
+        self.has_header = args.HAS_HEADER
 
     def view(self):
-        with open(f, 'r', encoding="utf8", errors='ignore') as fp:
-            fr =csv.reader(fp, delimiter=args.DELIMITER)     
+        with open(self.csvfile, 'r', encoding="utf8", errors='ignore') as fp:
+            fr =csv.reader(fp, delimiter=self.delimiter)     
             tbl = PrettyTable()   
-            if args.HAS_HEADER:
+            if self.has_header:
                 header = next(fr)                                                                  
                 tbl.field_names = header
             records = []
-            if args.LINES < 0:
+            if self.max_lines < 0:
                 for row in fr:
                     records.append(row)
             else:
-                for row in islice(fr, 0, args.LINES):
+                for row in islice(fr, 0, self.max_lines):
                     records.append(row)
             tbl.add_rows(records)
             print(tbl.get_string())
