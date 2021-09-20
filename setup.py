@@ -1,15 +1,17 @@
 from distutils.core import setup
+import setuptools
 
 setup(
   name = 'csvviewer',     
   packages = ['csvviewer'],
-  version = '0.1', 
+  version = '0.1.0', 
   license='MIT',  
   description = 'Command Line Delimited Text Viewer',
   author = 'franklinsijo',
   author_email = 'franklinsijo@gmail.com', 
   url = 'https://github.com/franklinsijo/csvviewer', 
-  download_url = 'https://github.com/franklinsijo/csvviewer/archive/v_0.1.tar.gz',
+  download_url = 'https://github.com/franklinsijo/csvviewer/archive/refs/tags/0.1.0.tar.gz',
+  scripts= ['bin/csvviewer'],
   keywords = ['csv', 'command-line', 'reader'], 
   install_requires=[        
           'prettytable',
